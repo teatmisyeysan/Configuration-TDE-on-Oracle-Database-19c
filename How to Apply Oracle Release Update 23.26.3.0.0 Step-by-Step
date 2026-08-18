@@ -1,1 +1,459 @@
 
+#################################################################
+## How to Apply Oracle Release Update 23.26.3.0.0 Step-by-Step ##
+#################################################################
+
+Backup OPatch 
+=============
+mv $ORACLE_HOME/OPatch $ORACLE_HOME/OPatch.bak
+
+Verify OPatch Version
+=====================
+/u01/app/26.0.0/grid/OPatch/opatch version
+
+
+Unzip patches
+=============
+unzip -q p39568945_230000_Linux-x86-64.zip
+
+Run Conflict Checks
+===================
+$ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578879
+$ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578865
+$ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578862
+$ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578859
+$ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578856
+
+
+Output:
+
+[grid@ms-vm-01 39568945]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578879
+Oracle Interim Patch Installer version 12.2.0.1.52
+Copyright (c) 2026, Oracle Corporation.  All rights reserved.
+
+PREREQ session
+
+Oracle Home       : /u01/app/26.0.0/grid
+Central Inventory : /u01/app/oraInventory
+   from           : /u01/app/26.0.0/grid/oraInst.loc
+OPatch version    : 12.2.0.1.52
+OUI version       : 12.2.0.9.0
+Log file location : /u01/app/26.0.0/grid/cfgtoollogs/opatch/opatch2026-08-18_14-24-41PM_1.log
+
+Invoking prereq "checkconflictagainstohwithdetail"
+
+Prereq "checkConflictAgainstOHWithDetail" passed.
+
+OPatch succeeded.
+[grid@ms-vm-01 39568945]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578865
+Oracle Interim Patch Installer version 12.2.0.1.52
+Copyright (c) 2026, Oracle Corporation.  All rights reserved.
+
+PREREQ session
+
+Oracle Home       : /u01/app/26.0.0/grid
+Central Inventory : /u01/app/oraInventory
+   from           : /u01/app/26.0.0/grid/oraInst.loc
+OPatch version    : 12.2.0.1.52
+OUI version       : 12.2.0.9.0
+Log file location : /u01/app/26.0.0/grid/cfgtoollogs/opatch/opatch2026-08-18_14-24-58PM_1.log
+
+Invoking prereq "checkconflictagainstohwithdetail"
+
+Prereq "checkConflictAgainstOHWithDetail" passed.
+
+OPatch succeeded.
+[grid@ms-vm-01 39568945]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578862
+Oracle Interim Patch Installer version 12.2.0.1.52
+Copyright (c) 2026, Oracle Corporation.  All rights reserved.
+
+PREREQ session
+
+Oracle Home       : /u01/app/26.0.0/grid
+Central Inventory : /u01/app/oraInventory
+   from           : /u01/app/26.0.0/grid/oraInst.loc
+OPatch version    : 12.2.0.1.52
+OUI version       : 12.2.0.9.0
+Log file location : /u01/app/26.0.0/grid/cfgtoollogs/opatch/opatch2026-08-18_14-25-09PM_1.log
+
+Invoking prereq "checkconflictagainstohwithdetail"
+
+Prereq "checkConflictAgainstOHWithDetail" passed.
+
+OPatch succeeded.
+[grid@ms-vm-01 39568945]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578859
+Oracle Interim Patch Installer version 12.2.0.1.52
+Copyright (c) 2026, Oracle Corporation.  All rights reserved.
+
+PREREQ session
+
+Oracle Home       : /u01/app/26.0.0/grid
+Central Inventory : /u01/app/oraInventory
+   from           : /u01/app/26.0.0/grid/oraInst.loc
+OPatch version    : 12.2.0.1.52
+OUI version       : 12.2.0.9.0
+Log file location : /u01/app/26.0.0/grid/cfgtoollogs/opatch/opatch2026-08-18_14-25-18PM_1.log
+
+Invoking prereq "checkconflictagainstohwithdetail"
+
+Prereq "checkConflictAgainstOHWithDetail" passed.
+
+OPatch succeeded.
+[grid@ms-vm-01 39568945]$ $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /u01/soft/39568945/39578856
+Oracle Interim Patch Installer version 12.2.0.1.52
+Copyright (c) 2026, Oracle Corporation.  All rights reserved.
+
+PREREQ session
+
+Oracle Home       : /u01/app/26.0.0/grid
+Central Inventory : /u01/app/oraInventory
+   from           : /u01/app/26.0.0/grid/oraInst.loc
+OPatch version    : 12.2.0.1.52
+OUI version       : 12.2.0.9.0
+Log file location : /u01/app/26.0.0/grid/cfgtoollogs/opatch/opatch2026-08-18_14-25-29PM_1.log
+
+Invoking prereq "checkconflictagainstohwithdetail"
+
+Prereq "checkConflictAgainstOHWithDetail" passed.
+
+OPatch succeeded.
+[grid@ms-vm-01 39568945]$
+
+
+
+
+####################################################################
+if issue cannot start and stop database please check GRID and RDBMS:
+
+[grid@ms-vm-01 network]$
+[grid@ms-vm-01 network]$ cd $ORACLE_HOME/bin
+[grid@ms-vm-01 bin]$ ls -ltr oracle
+-rwxrwxr-x 1 grid oinstall 520874584 Aug  7 17:26 oracle
+[grid@ms-vm-01 bin]$
+[grid@ms-vm-01 bin]$ chmod 6751 oracle
+[grid@ms-vm-01 bin]$
+[grid@ms-vm-01 bin]$ ls -ltr oracle
+-rwsr-s--x 1 grid oinstall 520874584 Aug  7 17:26 oracle
+[grid@ms-vm-01 bin]$
+
+####################################################################
+
+
+###################
+## Stop database ##
+###################
+
+[oracle@ms-vm-01 bin]$ srvctl stop database -d PROD19C
+[oracle@ms-vm-01 bin]$
+[oracle@ms-vm-01 bin]$ srvctl status database -d PROD19C
+Database is not running.
+[oracle@ms-vm-01 bin]$
+[oracle@ms-vm-01 bin]$
+
+
+##################################
+## Check minimum opatch version ##
+##################################
+
+$ORACLE_HOME/OPatch/opatch prereq CheckMinimumOPatchVersion -phBaseDir /u01/soft/39568945/39578862
+
+[grid@ms-vm-01 bin]$ $ORACLE_HOME/OPatch/opatch prereq CheckMinimumOPatchVersion -phBaseDir /u01/soft/39568945/39578862
+Oracle Interim Patch Installer version 12.2.0.1.52
+Copyright (c) 2026, Oracle Corporation.  All rights reserved.
+
+PREREQ session
+
+Oracle Home       : /u01/app/26.0.0/grid
+Central Inventory : /u01/app/oraInventory
+   from           : /u01/app/26.0.0/grid/oraInst.loc
+OPatch version    : 12.2.0.1.52
+OUI version       : 12.2.0.9.0
+Log file location : /u01/app/26.0.0/grid/cfgtoollogs/opatch/opatch2026-08-18_17-03-54PM_1.log
+
+Invoking prereq "checkminimumopatchversion"
+
+Prereq "checkMinimumOPatchVersion" passed.
+
+OPatch succeeded.
+[grid@ms-vm-01 bin]$
+[grid@ms-vm-01 bin]$
+
+
+
+########################
+## OpatchAuto analyze ##
+########################
+
+Required root user:
+[root@ms-vm-01 ~]# source /home/grid/grid26ai
+
+$ORACLE_HOME/OPatch/opatchauto apply -analyze  /u01/soft/39568945 -oh /u01/app/26.0.0/grid
+
+
+
+[root@ms-vm-01 soft]#
+[root@ms-vm-01 soft]# $ORACLE_HOME/OPatch/opatchauto apply -analyze  /u01/soft/39568945 -oh /u01/app/26.0.0/grid
+
+OPatchauto session is initiated at Tue Aug 18 17:06:18 2026
+
+System initialization log file is /u01/app/26.0.0/grid/cfgtoollogs/opatchautodb/systemconfig2026-08-18_05-06-30PM.log.
+
+Session log file is /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/opatchauto2026-08-18_05-06-37PM.log
+The id for this session is SCD1
+
+Executing OPatch prereq operations to verify patch applicability on home /u01/app/26.0.0/grid
+Patch applicability verified successfully on home /u01/app/26.0.0/grid
+
+
+Executing patch validation checks on home /u01/app/26.0.0/grid
+Patch validation checks successfully completed on home /u01/app/26.0.0/grid
+
+OPatchAuto successful.
+
+--------------------------------Summary--------------------------------
+
+Analysis for applying patches has completed successfully:
+
+Host:ms-vm-01
+SIHA Home:/u01/app/26.0.0/grid
+Version:23.0.0.0.0
+
+
+==Following patches were SUCCESSFULLY analyzed to be applied:
+
+Patch: /u01/soft/39568945/39578859
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-06-56PM_1.log
+
+Patch: /u01/soft/39568945/39578865
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-06-56PM_1.log
+
+Patch: /u01/soft/39568945/39578862
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-06-56PM_1.log
+
+Patch: /u01/soft/39568945/39578856
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-06-56PM_1.log
+
+Patch: /u01/soft/39568945/39578879
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-06-56PM_1.log
+
+
+
+OPatchauto session completed at Tue Aug 18 17:07:35 2026
+Time taken to complete the session 1 minute, 6 seconds
+[root@ms-vm-01 soft]#
+
+
+
+#################
+## Apply patch ##
+#################
+
+[root@ms-vm-01 soft]# $ORACLE_HOME/OPatch/opatchauto apply /u01/soft/39568945 -oh /u01/app/26.0.0/grid
+
+OPatchauto session is initiated at Tue Aug 18 17:08:25 2026
+
+System initialization log file is /u01/app/26.0.0/grid/cfgtoollogs/opatchautodb/systemconfig2026-08-18_05-08-32PM.log.
+
+Session log file is /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/opatchauto2026-08-18_05-08-38PM.log
+The id for this session is H9N9
+
+Executing OPatch prereq operations to verify patch applicability on home /u01/app/26.0.0/grid
+Patch applicability verified successfully on home /u01/app/26.0.0/grid
+
+
+Executing patch validation checks on home /u01/app/26.0.0/grid
+Patch validation checks successfully completed on home /u01/app/26.0.0/grid
+
+
+Performing prepatch operations on CRS - bringing down CRS service on home /u01/app/26.0.0/grid
+Prepatch operation log file location: /u01/app/grid/crsdata/ms-vm-01/crsconfig/hapatch_2026-08-18_05-09-35PM.log
+CRS service brought down successfully on home /u01/app/26.0.0/grid
+
+
+Start applying binary patch on home /u01/app/26.0.0/grid
+Binary patch applied successfully on home /u01/app/26.0.0/grid
+
+
+Running rootadd_rdbms.sh on home /u01/app/26.0.0/grid
+Successfully executed rootadd_rdbms.sh on home /u01/app/26.0.0/grid
+
+
+
+
+Performing postpatch operations on CRS - starting CRS service on home /u01/app/26.0.0/grid
+Postpatch operation log file location: /u01/app/grid/crsdata/ms-vm-01/crsconfig/hapatch_2026-08-18_05-15-16PM.log
+CRS service started successfully on home /u01/app/26.0.0/grid
+
+OPatchAuto successful.
+
+--------------------------------Summary--------------------------------
+
+Patching is completed successfully. Please find the summary as follows:
+
+Host:ms-vm-01
+SIHA Home:/u01/app/26.0.0/grid
+Version:23.0.0.0.0
+Summary:
+
+==Following patches were SUCCESSFULLY applied:
+
+Patch: /u01/soft/39568945/39578856
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-10-24PM_1.log
+
+Patch: /u01/soft/39568945/39578859
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-10-24PM_1.log
+
+Patch: /u01/soft/39568945/39578862
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-10-24PM_1.log
+
+Patch: /u01/soft/39568945/39578865
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-10-24PM_1.log
+
+Patch: /u01/soft/39568945/39578879
+Log: /u01/app/26.0.0/grid/cfgtoollogs/opatchauto/core/opatch/opatch2026-08-18_17-10-24PM_1.log
+
+
+
+OPatchauto session completed at Tue Aug 18 17:17:37 2026
+Time taken to complete the session 9 minutes, 5 seconds
+[root@ms-vm-01 soft]#
+
+
+
+####################
+## Validate Patch ##
+####################
+
+[grid@ms-vm-01 bin]$ opatch lspatches
+39578879;Database Release Update : 23.26.3.0.0 (39578879)
+39578865;ACFS RELEASE UPDATE 23.26.3.0.0 (39578865)
+39578862;MICRONAUT RELEASE UPDATE 23.26.3.0.0 (39578862)
+39578859;OCW RELEASE UPDATE 23.26.3.0.0 (39578859)
+39578856;RHP RELEASE UPDATE 23.26.3.0.0 (39578856)
+
+OPatch succeeded.
+[grid@ms-vm-01 bin]$
+
+
+
+[grid@ms-vm-01 bin]$ crsctl stat res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.RECO.dg
+               ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.asm
+               ONLINE  ONLINE       ms-vm-01                 Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      ms-vm-01                 STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.prod19c.db
+      1        OFFLINE OFFLINE                               Instance Shutdown,ST
+                                                             ABLE
+--------------------------------------------------------------------------------
+[grid@ms-vm-01 bin]$
+
+
+[grid@ms-vm-01 bin]$ sqlplus / as sysasm
+
+SQL*Plus: Release 23.26.3.0.0 - Production on Tue Aug 18 17:22:14 2026
+Version 23.26.3.0.0
+
+Copyright (c) 1982, 2026, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle AI Database 26ai Enterprise Edition Release 23.26.3.0.0 - Production
+Version 23.26.3.0.0
+
+SQL>
+
+
+
+
+####################
+## Start Database ##
+####################
+
+[oracle@ms-vm-01 bin]$ ps -ef |grep pmon
+grid     2492021       1  0 17:17 ?        00:00:00 asm_pmon_+ASM
+oracle   2500543 2366023  0 17:23 pts/3    00:00:00 grep --color=auto pmon
+[oracle@ms-vm-01 bin]$
+[oracle@ms-vm-01 bin]$
+[oracle@ms-vm-01 bin]$
+[oracle@ms-vm-01 bin]$ sql
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Tue Aug 18 17:23:03 2026
+Version 19.30.0.0.0
+
+Copyright (c) 1982, 2025, Oracle.  All rights reserved.
+
+startupConnected to an idle instance.
+
+SQL>
+ORACLE instance started.
+
+Total System Global Area 4630507608 bytes
+Fixed Size                  9187416 bytes
+Variable Size            1644167168 bytes
+Database Buffers         2969567232 bytes
+Redo Buffers                7585792 bytes
+Database mounted.
+Database opened.
+SQL>
+SQL> show pdbs;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 PDB                            MOUNTED
+SQL>
+SQL>
+SQL>
+
+
+[grid@ms-vm-01 bin]$ crsctl stat res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.RECO.dg
+               ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.asm
+               ONLINE  ONLINE       ms-vm-01                 Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      ms-vm-01                 STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       ms-vm-01                 STABLE
+ora.prod19c.db
+      1        ONLINE  ONLINE       ms-vm-01                 Open,HOME=/u01/app/o
+                                                             racle/product/19.0.0
+                                                             /dbhome_1,STABLE
+--------------------------------------------------------------------------------
+[grid@ms-vm-01 bin]$
