@@ -1,5 +1,4 @@
 ## Using Grid User use asmcmd to create asm wallet folder:
-+ ===========================================================
 ```bash
 asmcmd mkdir +DATADISK/wallet
 asmcmd mkdir +DATADISK/wallet/PROD
@@ -13,26 +12,23 @@ asmcmd ls -l +DATA/wallet/PROD
 ```
 
 ## Using Oracle user use sqlplus to configure wallet:
-======================================================
-
+```bash
 show parameter wallet_root
 alter system set WALLET_ROOT="+DATADISK/wallet/PROD" scope=spfile sid='*';
 alter system set WALLET_ROOT="+DATA/wallet/PROD" scope=spfile sid='*';
+```
 
-
-+++ Using oracle user restart Database:
-======================================
-
+### Using oracle user restart Database:
+```bash
 srvctl status database -db prod
 srvctl stop database -db prod
 srvctl start database -db prod
 -- using sqlplus 
 show parameter wallet_root
-
+```
 
 ## Using Oracle user use sqlplus to configure the TDE software Keystore Option:
-================================================================================
-
+```bash
 show parameter tde_configuration
 alter system set TDE_CONFIGURATION="KEYSTORE_CONFIGURATION=FILE" scope=both sid='*';
 show parameter tde_configuration
@@ -89,7 +85,7 @@ administer key management set keystore open force keystore identified by welcome
 ++ close keystore 
 ADMINISTER KEY MANAGEMENT SET KEYSTORE CLOSE;
 ADMINISTER KEY MANAGEMENT SET KEYSTORE CLOSE CONTAINER=ALL;
-
+```
 
 ## Remove the Auto Login and back to password wallet type:
 ===========================================================
