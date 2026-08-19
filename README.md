@@ -1,6 +1,6 @@
 ## Using Grid User use asmcmd to create asm wallet folder:
-===========================================================
-
++ ===========================================================
+```bash
 asmcmd mkdir +DATADISK/wallet
 asmcmd mkdir +DATADISK/wallet/PROD
 asmcmd mkdir +DATADISK/wallet/PROD/tde
@@ -10,6 +10,7 @@ asmcmd mkdir +DATA/wallet
 asmcmd mkdir +DATA/wallet/PROD
 asmcmd mkdir +DATA/wallet/PROD/tde
 asmcmd ls -l +DATA/wallet/PROD
+```
 
 ## Using Oracle user use sqlplus to configure wallet:
 ======================================================
