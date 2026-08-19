@@ -1,10 +1,5 @@
 ## Using Grid User use asmcmd to create asm wallet folder:
 ```bash
-asmcmd mkdir +DATADISK/wallet
-asmcmd mkdir +DATADISK/wallet/PROD
-asmcmd mkdir +DATADISK/wallet/PROD/tde
-asmcmd ls -l +DATADISK/wallet/PROD
-
 asmcmd mkdir +DATA/wallet
 asmcmd mkdir +DATA/wallet/PROD
 asmcmd mkdir +DATA/wallet/PROD/tde
@@ -14,7 +9,6 @@ asmcmd ls -l +DATA/wallet/PROD
 ## Using Oracle user use sqlplus to configure wallet:
 ```bash
 show parameter wallet_root
-alter system set WALLET_ROOT="+DATADISK/wallet/PROD" scope=spfile sid='*';
 alter system set WALLET_ROOT="+DATA/wallet/PROD" scope=spfile sid='*';
 ```
 
@@ -88,10 +82,9 @@ ADMINISTER KEY MANAGEMENT SET KEYSTORE CLOSE CONTAINER=ALL;
 ```
 
 ## Remove the Auto Login and back to password wallet type:
-===========================================================
 
-# using grid user use the asmcmd
-
+* using grid user use the asmcmd
+```bash
 cd  +DATADISK/wallet/PROD/tde/
 cp cwallet.sso ../
 rm cwallet.sso
@@ -102,7 +95,7 @@ alter system set wallet close;
 select * from GV$ENCRYPTION_WALLET;
 administer key management set keystore open identified by welcome1 container=all;
 select * from GV$ENCRYPTION_WALLET;
-
+```
 
 ## Re-Enable the Auto_Login wallet:
 ====================================
